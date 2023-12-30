@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-//apayaaaaaa
+
 class MenuItem {
     String itemName;
     double itemPrice;
@@ -23,10 +23,10 @@ class Reservation {
     }
 
     public void displayReservationDetails() {
-        System.out.println("Reservation Details:");
-        System.out.println("Customer Name: " + customerName);
-        System.out.println("Number of Guests: " + numberOfGuests);
-        System.out.println("Reservation Time: " + reservationTime);
+        System.out.println("Detail Reservasi:");
+        System.out.println("Nama Pelanggan: " + customerName);
+        System.out.println("Jumlah Tamu: " + numberOfGuests);
+        System.out.println("Waktu Reservasi: " + reservationTime);
     }
 }
 
@@ -40,7 +40,7 @@ class RestaurantMenu {
     public void displayMenu() {
         System.out.println("Menu:");
         for (MenuItem menuItem : menuItems) {
-            System.out.println(menuItem.itemName + " - $" + menuItem.itemPrice);
+            System.out.println(menuItem.itemName + " - Rp." + menuItem.itemPrice);
         }
     }
 
@@ -77,7 +77,7 @@ class ShoppingCart {
 
     public void addToCart(Order order) {
         orders.add(order);
-        System.out.println(order.quantity + " " + order.menuItem.itemName + "(s) added to the cart.");
+        System.out.println(order.quantity + " " + order.menuItem.itemName + "(s) ditambaahkan ke keranjang.");
     }
 
     public double calculateTotalOrder() {
@@ -89,11 +89,11 @@ class ShoppingCart {
     }
 
     public void displayReceipt() {
-        System.out.println("Receipt:");
+        System.out.println("Struk:");
         for (Order order : orders) {
-            System.out.println(order.quantity + " " + order.menuItem.itemName + "(s) - $" + order.calculateTotal());
+            System.out.println(order.quantity + " " + order.menuItem.itemName + "(s) - Rp." + order.calculateTotal());
         }
-        System.out.println("Total: $" + calculateTotalOrder());
+        System.out.println("Total: Rp." + calculateTotalOrder());
     }
 }
 
@@ -106,11 +106,11 @@ class ReservationSystem {
 
     public void makeReservation(Reservation reservation) {
         reservations.add(reservation);
-        System.out.println("Reservation successful!");
+        System.out.println("Reservasi berhasil!");
     }
 
     public void displayAllReservations() {
-        System.out.println("All Reservations:");
+        System.out.println("Semua Reservasi:");
         for (Reservation reservation : reservations) {
             reservation.displayReservationDetails();
             System.out.println("--------------");
@@ -123,22 +123,22 @@ public class RestaurantApp {
         Scanner scanner = new Scanner(System.in);
 
         RestaurantMenu menu = new RestaurantMenu();
-        menu.menuItems.add(new MenuItem("Spaghetti Bolognese", 12.99));
-        menu.menuItems.add(new MenuItem("Chicken Alfredo", 15.99));
-        menu.menuItems.add(new MenuItem("Margherita Pizza", 10.99));
+        menu.menuItems.add(new MenuItem("Spaghetti", 70000));
+        menu.menuItems.add(new MenuItem("Chicken", 35000));
+        menu.menuItems.add(new MenuItem("Pizza", 90000));
 
         ShoppingCart cart = new ShoppingCart();
         ReservationSystem reservationSystem = new ReservationSystem();
 
         while (true) {
-            System.out.println("\n1. Display Menu");
-            System.out.println("2. Make Reservation");
-            System.out.println("3. Display Reservations");
-            System.out.println("4. Add to Cart");
-            System.out.println("5. Display Receipt");
-            System.out.println("6. Exit");
+            System.out.println("\n1. Tampilkan Menu");
+            System.out.println("2. Buat Reservasi");
+            System.out.println("3. Tampilkan Reservasi");
+            System.out.println("4. Tambahlan ke Keranjang");
+            System.out.println("5. Tampilkan Struk");
+            System.out.println("6. Keluar");
 
-            System.out.print("Choose an option: ");
+            System.out.print("Pilih Menu: ");
             int option = scanner.nextInt();
 
             switch (option) {
@@ -146,12 +146,12 @@ public class RestaurantApp {
                     menu.displayMenu();
                     break;
                 case 2:
-                    System.out.print("Enter your name: ");
+                    System.out.print("Masukkan nama anda: ");
                     scanner.nextLine(); // Consume the newline character
                     String customerName = scanner.nextLine();
-                    System.out.print("Enter number of guests: ");
+                    System.out.print("Masukkan jumlah tamu: ");
                     int numberOfGuests = scanner.nextInt();
-                    System.out.print("Enter reservation time: ");
+                    System.out.print("Masukkan waktu reservasi: ");
                     scanner.nextLine(); // Consume the newline character
                     String reservationTime = scanner.nextLine();
 
@@ -162,29 +162,29 @@ public class RestaurantApp {
                     reservationSystem.displayAllReservations();
                     break;
                 case 4:
-                    System.out.print("Enter item name to add to cart: ");
+                    System.out.print("Masukkan nama item untuk ditambahkan ke keranjang: ");
                     scanner.nextLine(); // Consume the newline character
                     String itemName = scanner.nextLine();
                     MenuItem selectedMenuItem = menu.findMenuItem(itemName);
 
                     if (selectedMenuItem != null) {
-                        System.out.print("Enter quantity: ");
+                        System.out.print("Masukkan jumlah: ");
                         int quantity = scanner.nextInt();
                         Order order = new Order(selectedMenuItem, quantity);
                         cart.addToCart(order);
                     } else {
-                        System.out.println("Item not found in the menu.");
+                        System.out.println("Item tidak ditemukan dalam menu.");
                     }
                     break;
                 case 5:
                     cart.displayReceipt();
                     break;
                 case 6:
-                    System.out.println("Thank you for using the Restaurant App. Goodbye!");
+                    System.out.println("Terima kasih telah menggunakan aplikasi restoran. selamat tinggal!");
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Invalid option. Please choose a valid option.");
+                    System.out.println("Opsi tidak valid. Silahkan pilih opsi yang valid.");
             }
         }
     }
